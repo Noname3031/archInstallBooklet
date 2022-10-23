@@ -10,13 +10,15 @@
 ## 前期准备
 请到[ArchLinux](https://www.archlinux.org/download)官网下载光盘镜像,并写入到U盘/光盘上,并从UEFI启动.
 联网:`dhcpcd`或着`iwctl`
+
 后者请按照流程输入WiFi配置信息
 
 时间更新:`timedatectl set-ntp true`
 
 更新包管理器的配置:`vim /etc/pacman.conf`
+
 取消注释Misc options里的paralleldownloads = 5来启用多线程下载,
-以及下面软件源中的[multilib]和接下来的一行链接
+以及下面软件源中的[multilib]和接下来的一行链接.
 
 测试镜像服务器,并更新列表:`reflector --save /etc/pacman.d/mirrorlist --protocol https --sort rate -a 6 -c china`
 
@@ -28,7 +30,8 @@
 
 **注意,磁盘将被擦除,请在此之前做好数据备份.**
 擦除磁盘:`shred --verbose --random-source=/dev/urandom --iterations=1 /dev/sda`
-这里iterations=1 指的是擦除1遍.时间可能会很长.固态硬盘1遍即可
+
+这里iterations=1指的是擦除1遍.时间可能会很长.固态硬盘1遍即可
 
 ## 分区
 概览:
@@ -51,6 +54,7 @@
 |system-swap|32GiB|
 
 开始分区:`cfdisk /dev/sda`
+
 然后选择gpt分区,创建上表
 后期可通过mkswap [文件路径]和swapon [文件路径]指令创建和激活swap文件.
 分区后:(虚拟机)
