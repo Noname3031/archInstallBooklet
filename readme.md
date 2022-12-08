@@ -1,7 +1,6 @@
 # 安装Arch
 使用btrfs和加密的LVM
-在阅读本教程前,请确认电脑架构.
-由于是自用的关系,**兼容性不会很高**,请酌情使用相关配置.
+在阅读本教程前,请确认电脑架构并且酌情使用相关配置.
 这是根据网上四篇教程总结出的,相关链接:
 [其一](https://www.viseator.com/2017/05/17/arch_install/) [其二](https://www.howtoing.com/how-to-install-arch-linux-with-full-disk-encryption/) [其三](https://blog.yangmame.org/在U盘安装加密的Linux系统.html) [其四](https://snowfrs.com/2019/08/10/intall-archlinux-with-btrfs.html)
 
@@ -18,7 +17,6 @@
 更新包管理器的配置:`vim /etc/pacman.conf`
 
 取消注释Misc options里的paralleldownloads = 5来启用多线程下载,
-以及下面软件源中的[multilib]和接下来的一行链接.
 
 测试镜像服务器,并更新列表:`reflector --save /etc/pacman.d/mirrorlist --protocol https --sort rate -a 6 -c china`
 
@@ -31,7 +29,7 @@
 **注意,磁盘将被擦除,请在此之前做好数据备份.**
 擦除磁盘:`shred --verbose --random-source=/dev/urandom --iterations=1 /dev/sda`
 
-这里iterations=1指的是擦除1遍.时间可能会很长.固态硬盘1遍即可
+这里iterations=1指的是擦除1遍.时间可能会很长.
 
 ## 分区
 概览:
@@ -143,12 +141,11 @@
 
 可选在同时安装kde桌面:
 在上述命令后加上:`plasma kde-applications`
-如果安装了kde桌面请务必执行:(注意大小写)
-```
-systemctl enable NetworkManager sddm
-```
+
 可选在同时安装clamav防毒软件本体和防毒软件前端:
 在上述命令后加上:`clamav clamtk`
+
+如果安装了kde桌面请务必执行:(注意大小写)`systemctl enable NetworkManager sddm`
 
 创建fstab文件,用于开机时挂载分区:`genfstab -U -p /mnt >> /mnt/etc/fstab`
 
@@ -209,10 +206,7 @@ systemctl enable NetworkManager sddm
 systemctl enable clamav-daemon 
 systemctl start clamav-daemon
 ```
-如果安装了kde桌面请务必执行:(注意大小写)
-```
-pacman -S archlinux-appstream-data packagekit-qt5 flatpak fwupd
-```
+如果安装了kde桌面请务必执行:(注意大小写)`pacman -S archlinux-appstream-data packagekit-qt5 flatpak fwupd`
 
 ## 附录
 ### 系统相关
@@ -276,6 +270,3 @@ export QT_IM_MODULE="fcitx"
 ▷VirtualBox 虚拟机:`pacman -S virtualbox virtualbox-ext-vnc virtualbox-guest-iso virtualbox-host-modules-arch linux-headers`
 
 VirtualBox 扩展安装后:`sudo usermod -a -G vboxusers [用户名]`
-
-
-更新于2022/12/08
