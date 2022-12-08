@@ -179,14 +179,13 @@ systemctl enable NetworkManager sddm
 是带有'TYPE="crypto_LUKS"'的分区,请不要和其它分区的UUID混淆.
 
 配置grub:`vim /etc/default/grub`
-取消注释GRUB_ENABLE_CRYPTODISK=y
 并在GRUB_CMDLINE_LINUX=""的双引号间加入:`cryptdevice=UUID=[是刚刚记下的UUID]:cryptlvm root=/dev/system/root resume=/dev/system/swap`
 
 配置内核:`vim /etc/mkinitcpio.conf`
 在MODULES=(...)里加入**btrfs**,
 在HOOKS=(...)加入 **keyboard,keymap,encrypt,lvm2,resume**和替换**fsck**为**btrfs**(注意顺序)
 例子:
-`HOOKS=(base udev autodetect **keyboard** **keymap** modconf block **encrypt** **lvm2** **resume** filesystems **btrfs**)`
+`HOOKS=(base udev autodetect keyboard keymap modconf kms consolefont block encrypt lvm2 resume filesystems btrfs)`
 
 如果是笔记本等设备 在/etc/systemd/logind.conf里添加"HandleLidSwitch=hibernate".
 
