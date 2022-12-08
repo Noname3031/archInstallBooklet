@@ -194,7 +194,7 @@ systemctl enable NetworkManager sddm
 
 安装引导:`grub-install --efi-directory=/boot --boot-directory=/boot --recheck --removable`
 
-导出启动配置:`grub-mkconfig --o /boot/grub/grub.cfg`
+导出启动配置:`grub-mkconfig -o /boot/grub/grub.cfg`
 
 退出chroot:`exit`
 
