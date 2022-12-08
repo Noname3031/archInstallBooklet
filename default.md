@@ -125,8 +125,6 @@
 
 挂载boot分区:`mount /dev/sda1 /mnt/boot`
 
-创建EFI文件夹:`mkdir -p /mnt/boot/EFI`
-
 按需创建并挂载后:lsblk(部分省略)
 
 | NAME         | SIZE   | TYPE  | MOUNTOPTIONS    |
@@ -145,7 +143,10 @@
 
 可选在同时安装kde桌面:
 在上述命令后加上:`plasma kde-applications`
-
+如果安装了kde桌面请务必执行:(注意大小写)
+```
+systemctl enable NetworkManager sddm
+```
 可选在同时安装clamav防毒软件本体和防毒软件前端:
 在上述命令后加上:`clamav clamtk`
 
@@ -154,11 +155,6 @@
 ## 配置
 改变根目录:`arch-chroot /mnt`
 
-如果安装了kde桌面请务必执行:(注意大小写)
-```
-systemctl enable NetworkManager sddm
-pacman -S archlinux-appstream-data packagekit-qt5 flatpak fwupd
-```
 配置地区设置:`vim /etc/locale.gen`
 取消注释en_US.UTF-8和zh_CN.UTF-8 退出
 
@@ -196,7 +192,7 @@ pacman -S archlinux-appstream-data packagekit-qt5 flatpak fwupd
 
 制作内核:`mkinitcpio -p linux`
 
-安装引导:`grub-install --efi-directory=/boot/EFI --boot-directory=/boot --recheck --removable`
+安装引导:`grub-install --efi-directory=/boot --boot-directory=/boot --recheck --removable`
 
 导出启动配置:`grub-mkconfig --o /boot/grub/grub.cfg`
 
@@ -213,6 +209,10 @@ pacman -S archlinux-appstream-data packagekit-qt5 flatpak fwupd
 ```
 systemctl enable clamav-daemon 
 systemctl start clamav-daemon
+```
+如果安装了kde桌面请务必执行:(注意大小写)
+```
+pacman -S archlinux-appstream-data packagekit-qt5 flatpak fwupd
 ```
 
 ## 附录
@@ -279,4 +279,4 @@ export QT_IM_MODULE="fcitx"
 VirtualBox 扩展安装后:`sudo usermod -a -G vboxusers [用户名]`
 
 
-更新于2022/10/22
+更新于2022/12/08
